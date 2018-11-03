@@ -4,6 +4,8 @@
 // Require npm modules
 var express = require("express");
 var exphbs = require("express-handlebars");
+var mongoose = require("mongoose");
+mongoose.connect('mongodb://localhost/rotten-potatoes');
 // var debugger = require("locus");
 // ! Above packages installed.
 
@@ -13,14 +15,21 @@ app.engine("handlebars", exphbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars")
 
 // Mock model
-let reviews = [
-    {title: "Great review", movieTitle: "Batman II"},
-    {title: "Awesome film", movieTitle: "Titanic"}
-]
+const Review = mongoose.model("Review", {
+    title: String,
+    movieTitle: String
+})
 
 // Index route
 app.get("/", (req, res) => {
-    res.render("reviews-index", {reviews: reviews})
+    Review.find()
+        .then(reviews => {
+            res.render("reviews-index", {reviews: reviews})
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    
 })
 
 // app.get(".", async (req, res) => {
