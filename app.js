@@ -77,3 +77,15 @@ app.get("/reviews/:id/edit", (req, res) => {
         console.log(err.message)
     })
 })
+
+// Delete single review
+app.delete("/reviews/:id", (req, res) => {
+    console.log("Delete review")
+    Review.findByIdAndDelete(req.params.id)
+        .then((review) => {
+            res.redirect("/")
+        })
+        .catch((err) => {
+            console.log(err.message)
+        })
+})
