@@ -4,19 +4,25 @@
 // Require npm modules
 var express = require("express");
 var exphbs = require("express-handlebars");
+var bodyParser = require("body-parser")
 var mongoose = require("mongoose");
-mongoose.connect('mongodb://localhost/rotten-potatoes');
 // var debugger = require("locus");
 // ! Above packages installed.
 
+mongoose.connect('mongodb://localhost/rotten-potatoes');
 var app = express()
-
 app.engine("handlebars", exphbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars")
+app.use(bodyParser.urlencoded({extended: true}))
+
+app.listen(3000, () => {
+    console.log("App listening to port 3000!");
+})
 
 // Mock model
 const Review = mongoose.model("Review", {
     title: String,
+    description: String,
     movieTitle: String
 })
 
@@ -32,10 +38,21 @@ app.get("/", (req, res) => {
     
 })
 
+// Show new review
+app.get("/reviews/new", (req, res) => {
+    res.render("reviews-new", {});
+})
 // app.get(".", async (req, res) => {
 //     let reviews = await Review.find()
 // })
 
-app.listen(3000, () => {
-    console.log("App listening to port 3000!");
+// Create 
+app.post("/reviews", (req, res) => {
+    Review.create(req.body)
+        .then((review) => {
+            console.log(review);
+            res.redirect("/")
+        }).catch((err) => {
+            console.log(err.message);
+        })
 })
