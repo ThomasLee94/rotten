@@ -17,4 +17,17 @@
     <label for="review-description">Description</label><br>
     <textarea class="form-control" id="review-description" name="description" rows="10" />{{review.description}}</textarea>
   </div>
+
+  {{!-- RATING --}}
+  <div class="form-group">
+    Rating: 
+    <select for="review-rating">
+      <option class="form-control" name="rating">Trash: <span>&#9733;</span></option>
+      <option class="form-control" name="rating">Bad: <span>&#9733;</span><span>&#9733;</span></option>
+      <option class="form-control" name="rating">Average: <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></option>
+      <option class="form-control" name="rating">Good: <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></option>
+      <option class="form-control" name="rating">Excellent: <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></option>
+    </select>
+  </div>
+
 </fieldset>

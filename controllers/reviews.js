@@ -16,6 +16,7 @@ module.exports = function(app) {
     app.get("/reviews/new", (req, res) => {
         res.render("reviews-new", {});
     })
+    
     // app.get(".", async (req, res) => {
     //     let reviews = await Review.find()
     // })
